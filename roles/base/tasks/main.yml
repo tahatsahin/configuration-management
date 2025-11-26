@@ -1,0 +1,19 @@
+---
+- name: update all packages
+  apt:
+    name: "*"
+    state: latest
+
+- name: install usefull util
+  apt: 
+    name: 
+      - vim
+      - git
+      - curl
+    state: present
+
+- name: enable and start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: true

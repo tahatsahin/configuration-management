@@ -1,0 +1,11 @@
+---
+- name: upload website tarball
+  copy:
+    src: /mnt/c/Users/tahat/github/tahatsahin/configuration-management/my-website/static-files.tar.gz
+    dest: /tmp/website.tar.gz
+
+- name: extract static files
+  unarchive:
+    src: /tmp/website.tar.gz
+    dest: /var/www/html
+    remote_src: yes
