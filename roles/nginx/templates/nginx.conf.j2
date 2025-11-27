@@ -1,14 +1,41 @@
-server {
-	listen 80;
-	server_name localhost;
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+error_log /var/log/nginx/error.log;
+include /etc/nginx/modules-enabled/*.conf;
 
-	location / {
-		root /var/www/html;
-		index index.html index.html;
-	}
+events {
+        # worker_connections 768;
+        # multi_accept on;
+}
 
-	error_page 404
-	location = /404.html {
-		internal;
-	}
+http {
+
+        server {
+                listen  8080;
+                location / {
+                        root /data/www;
+                        index index.html index.htm;
+                        try_files $uri $uri/ =404;
+                }
+        }
+
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+
+        ##
+        # Virtual Host Configs
+        ##
+
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
 }
