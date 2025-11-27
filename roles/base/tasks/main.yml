@@ -11,9 +11,3 @@
       - git
       - curl
     state: present
-
-- name: enable and start firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: true
